@@ -54,7 +54,8 @@ Tests cover:
   - Coordinates between Scraper and OpenAI API
   - Default model: `gpt-4.1-mini`
 
-- **Scraper class** (`scraper.py`): Handles HTTP requests and HTML parsing
+- **Scraper class** (`../src/scraper.py`): Handles HTTP requests and HTML parsing
+  - Shared utility imported from the src/ directory
   - Uses BeautifulSoup for content extraction
   - Strips navigation elements (scripts, styles, images, inputs)
   - Truncates content to 2,000 characters for API efficiency
@@ -78,7 +79,7 @@ Tests cover:
 ## Important Constraints
 
 ### Content Limitations
-- Website content is hard-truncated at 2,000 characters in `scraper.py:51`
+- Website content is hard-truncated at 2,000 characters in `../src/scraper.py:51`
 - JavaScript-rendered sites (React, Vue, Angular) will not work - basic HTTP requests only
 - CloudFront-protected sites may return 403 errors
 
@@ -101,3 +102,31 @@ Tests cover:
 - Class attributes documented in docstrings
 - Truncation uses underscore separators (e.g., `2_000`)
 - Environment variables loaded with `override=True` to ensure fresh values
+
+## Git Commit Convention
+
+Use conventional commit format: `type(scope): brief description`
+
+### Commit Types
+- **feat**: New feature or functionality
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **refactor**: Code refactoring without functionality change
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks (dependencies, config, infrastructure)
+- **perf**: Performance improvements
+- **style**: Code style/formatting changes
+
+### Project Scopes
+- **agent**: Agent class and core logic
+- **scraper**: Web scraping functionality
+- **openai**: OpenAI API integration
+- **prompt**: Prompt templates and customization
+- **test**: Test suite updates
+
+### Guidelines
+- Keep first line under 72 characters
+- Use imperative mood ("add" not "added")
+- Always include: `Co-Authored-By: Warp <agent@warp.dev>`
+- Scope is optional but recommended
+- Reference issues when applicable: `fix(scraper): handle 403 CloudFront errors (#123)`

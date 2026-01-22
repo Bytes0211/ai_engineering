@@ -129,6 +129,11 @@ print(summary)
 ### Using the Scraper Directly
 
 ```python
+import sys
+from pathlib import Path
+
+# Add src directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from scraper import Scraper
 
 scraper = Scraper()
@@ -147,12 +152,17 @@ print(links)
 ```
 agent/
 ├── agent.py           # Main Agent class for AI-powered summarization
-├── scraper.py         # Web scraping utilities
 ├── requirements.txt   # Python dependencies
+├── pyproject.toml     # Project configuration and dependencies
 ├── .env              # Environment variables (create this)
-├── .env.example      # Example environment variables
 ├── .gitignore        # Git ignore rules
+├── test_agent.py      # Unit tests
+├── example.py         # Usage examples
+├── WARP.md           # Warp AI agent documentation
 └── README.md         # This file
+
+../src/
+└── scraper.py         # Shared web scraping utilities
 ```
 
 ## API Reference

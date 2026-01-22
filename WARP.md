@@ -30,10 +30,31 @@ This is an AI/LLM engineering learning project that converts Jupyter notebook tu
 ## Dependencies and Environment
 
 ### Package Management
-- Use `uv` for dependency management (preferred)
-- Fallback to `pip` if needed
+- **ALWAYS use `uv` for dependency management** - this is the standard for this project
+- Each module/subproject should have its own `pyproject.toml`
 - All dependencies must be declared in `pyproject.toml`
 - Pin versions for reproducibility
+
+### Using uv
+```bash
+# Install dependencies
+uv sync
+
+# Run Python scripts
+uv run python script.py
+
+# Run installed commands
+uv run brochure "Company" "https://example.com"
+
+# Run tests
+uv run python -m unittest test_module.py -v
+
+# Add a dependency
+uv add openai
+
+# Add a dev dependency
+uv add --dev pytest
+```
 
 ### Environment Variables
 - Store all API keys in `.env` file
@@ -271,3 +292,35 @@ def get_completion(
 - Tutorial source: `/home/scotton/dev/notes/llm/`
 - Project structure inspired by production Python best practices
 - API documentation: See README.md Resources section
+
+## Git Commit Convention
+
+Use conventional commit format: `type(scope): brief description`
+
+### Commit Types
+- **feat**: New feature or functionality
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **refactor**: Code refactoring without functionality change
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks (dependencies, config, infrastructure)
+- **perf**: Performance improvements
+- **style**: Code style/formatting changes
+
+### Project Scopes
+- **week{N}**: Week-specific modules (e.g., week1, week2)
+- **llm**: LLM integration general
+- **openai**: OpenAI API integration
+- **anthropic**: Anthropic Claude API
+- **google**: Google Gemini API
+- **ollama**: Ollama local models
+- **prompt**: Prompt engineering
+- **config**: Configuration management
+
+### Guidelines
+- Keep first line under 72 characters
+- Use imperative mood ("add" not "added")
+- Always include: `Co-Authored-By: Warp <agent@warp.dev>`
+- Scope is optional but recommended
+- Reference issues when applicable: `fix(openai): handle API rate limits (#123)`
+- Reference tutorial source: `feat(week1): add web summarizer based on day1.ipynb`
