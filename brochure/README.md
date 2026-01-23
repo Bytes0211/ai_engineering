@@ -49,14 +49,11 @@ OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 ### Command Line
 
 ```bash
-# Basic usage
-uv run brochure "HuggingFace" "https://huggingface.co"
+# Run directly with python
+uv run python brochure.py "HuggingFace" "https://huggingface.co"
 
 # With streaming output
-uv run brochure "HuggingFace" "https://huggingface.co" --stream
-
-# Or run directly with python
-uv run python brochure.py "HuggingFace" "https://huggingface.co"
+uv run python brochure.py "HuggingFace" "https://huggingface.co" --stream
 ```
 
 ### Python API

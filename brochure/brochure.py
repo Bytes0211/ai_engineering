@@ -221,33 +221,50 @@ use this information to build a short brochure of the company in markdown withou
 
 
 def main():
-    """Example usage of BrochureGenerator."""
-    import argparse
+    """Interactive brochure generator with user prompts."""
+    print("=" * 60)
+    print("Company Brochure Generator")
+    print("=" * 60)
+    print()
     
-    parser = argparse.ArgumentParser(
-        description="Generate a company brochure from website content"
-    )
-    parser.add_argument("company_name", help="Name of the company")
-    parser.add_argument("url", help="Company website URL")
-    parser.add_argument(
-        "--stream",
-        action="store_true",
-        help="Stream the output in real-time"
-    )
+    # Get company name
+    company_name = input("Enter the company name: ").strip()
+    if not company_name:
+        print("Error: Company name cannot be empty.")
+        sys.exit(1)
     
-    args = parser.parse_args()
+    # Get website URL
+    url = input("Enter the company website URL: ").strip()
+    if not url:
+        print("Error: URL cannot be empty.")
+        sys.exit(1)
     
-    generator = BrochureGenerator()
+    # Ask if user wants streaming output
+    stream_choice = input("Stream output in real-time? (y/n) [n]: ").strip().lower()
+    use_streaming = stream_choice in ['y', 'yes']
     
-    if args.stream:
-        print(f"\n# Brochure for {args.company_name}\n")
-        for chunk in generator.stream_brochure(args.company_name, args.url):
-            print(chunk, end="", flush=True)
-        print()  # Final newline
-    else:
-        brochure = generator.create_brochure(args.company_name, args.url)
-        print(f"\n# Brochure for {args.company_name}\n")
-        print(brochure)
+    print()
+    print("Generating brochure...")
+    print()
+    
+    try:
+        generator = BrochureGenerator()
+        
+        if use_streaming:
+            print(f"# Brochure for {company_name}\n")
+            for chunk in generator.stream_brochure(company_name, url):
+                print(chunk, end="", flush=True)
+            print()  # Final newline
+        else:
+            brochure = generator.create_brochure(company_name, url)
+            print(f"# Brochure for {company_name}\n")
+            print(brochure)
+    except KeyboardInterrupt:
+        print("\n\nBrochure generation cancelled.")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\nError generating brochure: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

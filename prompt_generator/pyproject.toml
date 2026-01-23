@@ -1,13 +1,10 @@
 [project]
-name = "agent"
+name = "prompt_generator"
 version = "0.1.0"
-description = "Add your description here"
+description = "Interactive CLI tool for generating structured LLM prompts"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "beautifulsoup4>=4.14.3",
-    "ipython>=9.9.0",
-    "openai>=2.15.0",
     "python-dotenv>=1.2.1",
     "requests>=2.32.5",
 ]

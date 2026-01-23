@@ -10,6 +10,7 @@ This is an AI/LLM engineering learning project that converts Jupyter notebook tu
 - **Weekly Modules**: `week{N}/` - Contains all code for that week
 - **Daily Exercises**: `week{N}/day{N}/` - Specific day's implementations
 - **Shared Utilities**: `shared/` - Common code used across modules
+- **Standalone Projects**: `prompt_generator/`, `tokens/`, `agent/` - Self-contained utilities and tools
 - **No Notebooks**: All code must be in `.py` files, never `.ipynb`
 
 ### File Naming Conventions
@@ -246,6 +247,36 @@ def get_completion(
 - [ ] Follows project structure
 - [ ] Updated documentation
 
+## Subproject-Specific Rules
+
+### prompt_generator/
+Standalone CLI tool for generating structured LLM prompts with OpenRouter API integration.
+
+**Architecture**:
+- `prompt_templates.json` - Single source of truth for all prompt configurations
+- `prompt_generator.py` - Interactive CLI with menu-driven workflow
+- `example_content.md` - Reference documentation (not used at runtime)
+- Three-role message pattern: system + developer + user
+
+**Key Patterns**:
+- Template-driven design: All prompts loaded dynamically from JSON
+- Multi-line input handling: Empty line counting (2 consecutive empty lines to finish)
+- Model selection: OpenRouter API supports `openai/gpt-4.1-mini` and `anthropic/claude-3-5-haiku-latest`
+- Automatic role conversion: Developer role merged into system for API compatibility
+- Markdown output: All templates configured for markdown-formatted responses
+
+**Development Guidelines**:
+- Adding templates: Edit JSON only, no code changes needed
+- Template structure: Must include `id`, `name`, `description`, `default_content`, `system_prompt`, `developer_prompt`, `user_prompt_template`
+- User prompt templates: Use `{content}` placeholder for dynamic substitution
+- Environment: Requires `OPENROUTER_API_KEY` in `.env` file
+- Testing: Run with `uv run python -m unittest test_prompt_generator.py -v`
+
+**File Dependencies**:
+- `prompt_generator.py` reads `prompt_templates.json` (same directory, hardcoded path)
+- Both must coexist in `prompt_generator/` directory
+- `.env.example` provides template for environment variables
+
 ## Special Considerations
 
 ### Ollama Integration
@@ -316,6 +347,9 @@ Use conventional commit format: `type(scope): brief description`
 - **ollama**: Ollama local models
 - **prompt**: Prompt engineering
 - **config**: Configuration management
+- **prompt_generator**: Prompt generator CLI tool and templates
+- **tokens**: Token counter utility
+- **agent**: Agent-related utilities
 
 ### Guidelines
 - Keep first line under 72 characters

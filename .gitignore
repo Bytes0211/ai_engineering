@@ -112,6 +112,8 @@ data/processed/
 *.json
 # Exception: keep small config files
 !config*.json
+!*_templates.json
+!prompt_templates.json
 
 # API response caches
 .api_cache/
